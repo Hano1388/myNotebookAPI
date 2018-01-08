@@ -9,5 +9,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/api/notes', db.getAllNotes);
+router.get('/api/notes/:id', db.getAnote);
 
 module.exports = router;
