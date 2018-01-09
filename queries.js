@@ -61,8 +61,25 @@ function _createNote(req, res, next) {
     });
 }
 
+// Update a note
+function _updateNote(req, res, next) {
+  req.body.date = noteDate('full');
+  db.none('update notes set title=$1, body=$2, date=$3', [req.body.title, req.body.body, req.body.date])
+    .then(() => {
+      res.status(200)
+         .json({
+           status: 'success',
+           message: 'updated Note'
+         });
+    })
+    .catch(err => {
+      return next(err);
+    });
+}
+
 module.exports = {
   getAllNotes: _getNotes,
   getAnote: _getNote,
-  createAnote: _createNote
+  createAnote: _createNote,
+  updateAnote: _updateNote
 }
