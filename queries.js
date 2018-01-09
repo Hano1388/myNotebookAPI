@@ -1,4 +1,5 @@
 var promise = require('bluebird');
+var noteDate = require('current-date');
 
 var options = {
   // Initialization Options
@@ -43,7 +44,25 @@ function _getNote(req, res, next) {
     });
 }
 
+// Post a note
+function _createNote(req, res, next) {
+  req.body.date = noteDate('full');
+  db.none('insert into notes(title, body, date)' +
+          'values(${title}, ${body}, ${date})', req.body)
+    .then(() => {
+      res.status(200)
+         .json({
+           status: 'success',
+           message: 'Inserted a note'
+         });
+    })
+    .catch(err => {
+      return next(err);
+    });
+}
+
 module.exports = {
   getAllNotes: _getNotes,
-  getAnote: _getNote
+  getAnote: _getNote,
+  createAnote: _createNote
 }
