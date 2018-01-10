@@ -10,6 +10,7 @@
     "body-parser": "~1.18.2",
     "consolidate": "*",
     "cookie-parser": "~1.4.3",
+    "cors": "^2.8.4",
     "current-date": "^0.1.1",
     "dust": "*",
     "dustjs-helpers": "*",
